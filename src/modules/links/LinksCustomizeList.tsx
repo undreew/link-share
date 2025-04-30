@@ -6,10 +6,19 @@ import { Input } from "@/components/input";
 import { Select } from "@/components/select";
 import { Button } from "@/components/ui/button";
 
-import { Links } from "./LinksCustomize";
+import { Links, LinksPayload } from "./LinksCustomize";
 import { GripHorizontal, Link } from "lucide-react";
 
 import { ReactSortable } from "react-sortablejs";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+import { useFormContext } from "react-hook-form";
+
+import { Label } from "@/components/ui/label";
 
 interface Props {
   data: Links;
@@ -26,6 +35,8 @@ const LinksCustomizeItem = ({
   };
   onRemove: (id: number) => void;
 }) => {
+  const { control } = useFormContext<LinksPayload>();
+
   return (
     <div className="bg-gray-light p-4">
       <div className="flex justify-between">
@@ -48,10 +59,23 @@ const LinksCustomizeItem = ({
         </div>
 
         <div>
-          <p className="body-sm">Link</p>
-          <Input
-            icon={<Link size={12} />}
-            placeholder="e.g. https://www.github.com/johnappleseed"
+          <FormField
+            name={`links.${item.id}.link`}
+            control={control}
+            render={({ field }) => (
+              <FormItem>
+                <Label htmlFor="link">Link</Label>
+                <FormControl>
+                  <Input
+                    id="link"
+                    icon={<Link size={12} />}
+                    placeholder="e.g. alex@email.com"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
         </div>
       </div>
@@ -65,7 +89,7 @@ const LinksCustomizeList: React.FC<Props> = ({ data, onChange, onRemove }) => {
       list={data}
       animation={200}
       setList={onChange}
-      className="flex flex-col gap-5 h-fit min-h-[400px] max-h-[400px] overflow-y-auto"
+      className="flex flex-col gap-5 min-h-[345px] max-h-[345px] overflow-y-auto"
     >
       {map(data, (item) => {
         return (
