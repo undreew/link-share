@@ -1,24 +1,20 @@
+import { ReactSortable } from "react-sortablejs";
+import { useFormContext } from "react-hook-form";
+import { GripHorizontal, Link } from "lucide-react";
 import React, { Dispatch, SetStateAction } from "react";
+
 import { map } from "lodash";
 
 import { LINKS } from "@/constants/links";
 import { Input } from "@/components/input";
-import { Button } from "@/components/ui/button";
-
-import { Links, LinksPayload } from "./LinksCustomize";
-import { GripHorizontal, Link } from "lucide-react";
-
-import { ReactSortable } from "react-sortablejs";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { useFormContext } from "react-hook-form";
-
-import { Label } from "@/components/ui/label";
 import { Select } from "@/components/select";
+import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { FormField, FormItem } from "@/components/ui/form";
+import { FormMessage, FormControl } from "@/components/ui/form";
+
+import { Links } from "./LinksCustomize";
+import { LinksPayload } from "@/types/payload";
 
 interface Props {
   data: Links;

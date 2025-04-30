@@ -1,19 +1,15 @@
-import React, { Fragment, useEffect, useState } from "react";
 import { LucideIcon } from "lucide-react";
+import { IconType } from "react-icons/lib";
+import { FieldPath, FieldValues } from "react-hook-form";
+import React, { Fragment, useEffect, useState } from "react";
+import { ControllerRenderProps, useFormContext } from "react-hook-form";
 
+import { cn } from "@/lib/utils";
 import { keys, last, map } from "lodash";
 
 import { SelectItem, SelectValue } from "@/components/ui/select";
 import { SelectContent, SelectTrigger } from "@/components/ui/select";
 import { Select as SelectUi, SelectSeparator } from "@/components/ui/select";
-import { IconType } from "react-icons/lib";
-import {
-  ControllerRenderProps,
-  FieldPath,
-  FieldValues,
-  useFormContext,
-} from "react-hook-form";
-import { cn } from "@/lib/utils";
 
 type Option = {
   value: string;
