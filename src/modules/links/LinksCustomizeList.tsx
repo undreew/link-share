@@ -9,7 +9,6 @@ import { LINKS } from "@/constants/links";
 import { Input } from "@/components/input";
 import { Select } from "@/components/select";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
 import { FormField, FormItem } from "@/components/ui/form";
 import { FormMessage, FormControl } from "@/components/ui/form";
 
@@ -44,9 +43,12 @@ const LinksCustomizeItem = ({
           </h1>
         </div>
 
-        <Button variant="ghost" onClick={() => onRemove(item.id)}>
+        <span
+          className="body-md cursor-pointer"
+          onClick={() => onRemove(item.id)}
+        >
           Remove
-        </Button>
+        </span>
       </div>
 
       <div className="mt-3 flex flex-col gap-3">

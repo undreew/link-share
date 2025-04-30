@@ -1,4 +1,4 @@
-import React from "react";
+import React, { KeyboardEvent } from "react";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -8,8 +8,14 @@ interface Props {
 
 const LinksCustomizeAction: React.FC<Props> = (props) => {
   const { onAdd } = props;
+
+  function handleKeyDown(e: KeyboardEvent<HTMLDivElement>) {
+    e.preventDefault();
+    e.stopPropagation();
+  }
+
   return (
-    <div className="w-full mt-10">
+    <div className="w-full mt-10" onKeyDown={handleKeyDown}>
       <Button
         size="lg"
         type="button"
