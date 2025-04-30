@@ -12,7 +12,8 @@ import { Button } from "@/components/ui/button";
 import { Form } from "@/components/form";
 import { useForm } from "react-hook-form";
 
-import { array, number, object, string } from "yup";
+import cleanDeep from "clean-deep";
+import { array, object, string } from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 interface Props {
@@ -27,7 +28,7 @@ export type Links = Link[];
 
 export type LinksPayload = {
   links: {
-    id: number;
+    // id: number;
     link: string;
     platform: string;
   }[];
@@ -37,7 +38,9 @@ const LinksCustomize: React.FC<Props> = () => {
   const [links, setLinks] = useState<Links>([]);
 
   function handleAddLink() {
-    setLinks((prev) => [...prev, { id: prev.length + 1 }]);
+    const nextId =
+      links.length > 0 ? Math.max(...links.map((l) => l.id)) + 1 : 1;
+    setLinks((prev) => [...prev, { id: nextId }]);
   }
 
   function handleRemoveLink(id: number) {
@@ -48,7 +51,7 @@ const LinksCustomize: React.FC<Props> = () => {
     links: array()
       .of(
         object({
-          id: number().required("This field is required"),
+          // id: number().required("This field is required"),
           link: string().required("This field is required"),
           platform: string().required("This field is required"),
         })
@@ -61,7 +64,12 @@ const LinksCustomize: React.FC<Props> = () => {
   });
 
   return (
-    <Form formValues={formValues} onSubmit={(e) => console.log(e)}>
+    <Form
+      formValues={formValues}
+      onSubmit={(formData) => {
+        console.log(cleanDeep(formData));
+      }}
+    >
       <div className="p-5 sm:px-10 md:px-5 lg:px-10 py-7 sm:py-12 flex flex-col flex-1">
         <LinksCustomizeHeader />
         <LinksCustomizeAction onAdd={handleAddLink} />

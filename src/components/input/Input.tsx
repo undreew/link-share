@@ -6,10 +6,11 @@ import { Input as InputUi } from "../ui/input";
 
 interface Props {
   icon?: React.ReactElement;
+  isInvalid?: boolean;
 }
 
 const Input: React.FC<React.ComponentProps<"input"> & Props> = (props) => {
-  const { icon, className, name, ...rest } = props;
+  const { icon, className, name, value, isInvalid, ...rest } = props;
 
   const { formState } = useFormContext();
   const { errors, isValid } = formState;
@@ -19,9 +20,13 @@ const Input: React.FC<React.ComponentProps<"input"> & Props> = (props) => {
       {icon && <span className="absolute left-4 text-gray-dark">{icon}</span>}
       <InputUi
         name={name}
+        value={value || ""}
         className={cn(
           "hover:border-purple-main text-dark pl-9 shadow-purple-light transition-shadow hover:shadow-[0_0_10px_5px]",
-          { "hover:shadow-none": errors[name!], "border-green-500": isValid },
+          {
+            "hover:shadow-none": errors[name!] || isInvalid,
+            "border-green-500": isValid,
+          },
           className
         )}
         {...rest}
