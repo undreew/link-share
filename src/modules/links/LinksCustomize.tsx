@@ -18,6 +18,7 @@ interface Props {
 
 export interface Link {
   id: number;
+  chosen: boolean;
 }
 
 export type Links = Link[];
@@ -30,7 +31,7 @@ const LinksCustomize: React.FC<Props> = () => {
   function handleAddLink() {
     const nextId =
       links.length > 0 ? Math.max(...links.map((l) => l.id)) + 1 : 1;
-    setLinks((prev) => [...prev, { id: nextId }]);
+    setLinks((prev) => [...prev, { id: nextId, chosen: false }]);
   }
 
   function handleRemoveLink(id: number) {

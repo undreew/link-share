@@ -14,6 +14,7 @@ import { FormMessage, FormControl } from "@/components/ui/form";
 
 import { Links } from "./LinksCustomize";
 import { LinksPayload } from "@/types/payload";
+import { cn } from "@/lib/utils";
 
 interface Props {
   data: Links;
@@ -27,26 +28,27 @@ const LinksCustomizeItem = ({
 }: {
   item: {
     id: number;
+    chosen: boolean;
   };
   onRemove: (id: number) => void;
 }) => {
   const { control, formState } = useFormContext<LinksPayload>();
   const { errors } = formState;
+  const { id, chosen } = item;
 
   return (
-    <div className="bg-gray-light p-4">
+    <div
+      className={cn("bg-gray-light p-4 cursor-grab", {
+        "cursor-grabbing": chosen,
+      })}
+    >
       <div className="flex justify-between">
         <div className="flex items-center gap-2">
-          <GripHorizontal size={15} className="text-gray-dark cursor-grab" />
-          <h1 className="text-[16px] font-bold text-gray-dark">
-            Link# {item.id}
-          </h1>
+          <GripHorizontal size={15} className="text-gray-dark" />
+          <h1 className="text-[16px] font-bold text-gray-dark">Link# {id}</h1>
         </div>
 
-        <span
-          className="body-md cursor-pointer"
-          onClick={() => onRemove(item.id)}
-        >
+        <span className="body-md cursor-pointer" onClick={() => onRemove(id)}>
           Remove
         </span>
       </div>
@@ -55,12 +57,12 @@ const LinksCustomizeItem = ({
         <div>
           <FormField
             control={control}
-            name={`links.${item.id}.platform`}
+            name={`links.${id}.platform`}
             render={({ field }) => (
               <FormItem>
                 <Label htmlFor="platform">Platform</Label>
                 <Select
-                  error={Boolean(errors?.links?.[item.id]?.platform?.message)}
+                  error={Boolean(errors?.links?.[id]?.platform?.message)}
                   source={LINKS}
                   {...field}
                 />
@@ -72,7 +74,7 @@ const LinksCustomizeItem = ({
 
         <div>
           <FormField
-            name={`links.${item.id}.link`}
+            name={`links.${id}.link`}
             control={control}
             render={({ field }) => (
               <FormItem>
