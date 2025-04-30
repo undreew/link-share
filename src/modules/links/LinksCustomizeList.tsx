@@ -1,24 +1,20 @@
+import { ReactSortable } from "react-sortablejs";
+import { useFormContext } from "react-hook-form";
+import { GripHorizontal, Link } from "lucide-react";
 import React, { Dispatch, SetStateAction } from "react";
+
 import { map } from "lodash";
 
 import { LINKS } from "@/constants/links";
 import { Input } from "@/components/input";
 import { Select } from "@/components/select";
-import { Button } from "@/components/ui/button";
-
-import { Links, LinksPayload } from "./LinksCustomize";
-import { GripHorizontal, Link } from "lucide-react";
-
-import { ReactSortable } from "react-sortablejs";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
-import { useFormContext } from "react-hook-form";
-
 import { Label } from "@/components/ui/label";
+import { Button } from "@/components/ui/button";
+import { FormField, FormItem } from "@/components/ui/form";
+import { FormMessage, FormControl } from "@/components/ui/form";
+
+import { Links } from "./LinksCustomize";
+import { LinksPayload } from "@/types/payload";
 
 interface Props {
   data: Links;
@@ -35,7 +31,8 @@ const LinksCustomizeItem = ({
   };
   onRemove: (id: number) => void;
 }) => {
-  const { control } = useFormContext<LinksPayload>();
+  const { control, formState } = useFormContext<LinksPayload>();
+  const { errors } = formState;
 
   return (
     <div className="bg-gray-light p-4">
@@ -54,8 +51,21 @@ const LinksCustomizeItem = ({
 
       <div className="mt-3 flex flex-col gap-3">
         <div>
-          <p className="body-sm">Platform</p>
-          <Select source={LINKS} />
+          <FormField
+            control={control}
+            name={`links.${item.id}.platform`}
+            render={({ field }) => (
+              <FormItem>
+                <Label htmlFor="platform">Platform</Label>
+                <Select
+                  error={Boolean(errors?.links?.[item.id]?.platform?.message)}
+                  source={LINKS}
+                  {...field}
+                />
+                <FormMessage />
+              </FormItem>
+            )}
+          />
         </div>
 
         <div>
@@ -70,6 +80,7 @@ const LinksCustomizeItem = ({
                     id="link"
                     icon={<Link size={12} />}
                     placeholder="e.g. alex@email.com"
+                    isInvalid={Boolean(errors?.links?.[item.id]?.link)}
                     {...field}
                   />
                 </FormControl>

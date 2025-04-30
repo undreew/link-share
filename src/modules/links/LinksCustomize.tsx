@@ -7,13 +7,10 @@ import LinksCustomizeAction from "./LinksCustomizeAction";
 import LinksCustomizeHeader from "./LinksCustomizeHeader";
 import LinksCustomizePlaceholder from "./LinksCustomizePlaceholder";
 
+import { Form } from "@/components/form";
 import { Button } from "@/components/ui/button";
 
-import { Form } from "@/components/form";
-import { useForm } from "react-hook-form";
-
-import { array, number, object, string } from "yup";
-import { yupResolver } from "@hookform/resolvers/yup";
+import useCreateLinks from "./useCreateLinks";
 
 interface Props {
   data?: [];
@@ -25,43 +22,23 @@ export interface Link {
 
 export type Links = Link[];
 
-export type LinksPayload = {
-  links: {
-    id: number;
-    link: string;
-    platform: string;
-  }[];
-};
-
 const LinksCustomize: React.FC<Props> = () => {
+  const { formValues, onSubmit } = useCreateLinks();
+
   const [links, setLinks] = useState<Links>([]);
 
   function handleAddLink() {
-    setLinks((prev) => [...prev, { id: prev.length + 1 }]);
+    const nextId =
+      links.length > 0 ? Math.max(...links.map((l) => l.id)) + 1 : 1;
+    setLinks((prev) => [...prev, { id: nextId }]);
   }
 
   function handleRemoveLink(id: number) {
     setLinks((prev) => prev.filter((item) => item.id !== id));
   }
 
-  const schema = object({
-    links: array()
-      .of(
-        object({
-          id: number().required("This field is required"),
-          link: string().required("This field is required"),
-          platform: string().required("This field is required"),
-        })
-      )
-      .required("Links are required"),
-  });
-
-  const formValues = useForm<LinksPayload>({
-    resolver: yupResolver(schema),
-  });
-
   return (
-    <Form formValues={formValues} onSubmit={(e) => console.log(e)}>
+    <Form formValues={formValues} onSubmit={onSubmit}>
       <div className="p-5 sm:px-10 md:px-5 lg:px-10 py-7 sm:py-12 flex flex-col flex-1">
         <LinksCustomizeHeader />
         <LinksCustomizeAction onAdd={handleAddLink} />

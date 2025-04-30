@@ -1,12 +1,15 @@
-import React, { Fragment, useEffect, useState } from "react";
 import { LucideIcon } from "lucide-react";
+import { IconType } from "react-icons/lib";
+import { FieldPath, FieldValues } from "react-hook-form";
+import React, { Fragment, useEffect, useState } from "react";
+import { ControllerRenderProps, useFormContext } from "react-hook-form";
 
+import { cn } from "@/lib/utils";
 import { keys, last, map } from "lodash";
 
 import { SelectItem, SelectValue } from "@/components/ui/select";
 import { SelectContent, SelectTrigger } from "@/components/ui/select";
 import { Select as SelectUi, SelectSeparator } from "@/components/ui/select";
-import { IconType } from "react-icons/lib";
 
 type Option = {
   value: string;
@@ -16,15 +19,24 @@ type Option = {
 
 type Options = Option[];
 
-interface Props {
-  id?: string;
-  source: Record<string, { label: string; icon: LucideIcon | IconType }>;
+interface SelectSource {
+  [key: string]: { label: string; icon: LucideIcon | IconType };
 }
 
-const Select: React.FC<Props> = (props) => {
-  const { id, source } = props;
+type SelectProps<TFieldValues extends FieldValues = FieldValues> = {
+  id?: string;
+  error?: boolean;
+  source: SelectSource;
+} & ControllerRenderProps<TFieldValues, FieldPath<TFieldValues>>;
+
+const Select = <TFieldValues extends FieldValues>(
+  props: SelectProps<TFieldValues>
+) => {
+  const { id, source, onChange, value, error } = props;
 
   const [options, setOptions] = useState<Options>([]);
+  const { formState } = useFormContext();
+  const { isValid } = formState;
 
   useEffect(() => {
     if (source) {
@@ -44,32 +56,22 @@ const Select: React.FC<Props> = (props) => {
   }
 
   return (
-    <SelectUi name="country">
+    <SelectUi {...props} onValueChange={onChange} defaultValue={value}>
       <SelectTrigger
         id={id}
-        className="w-full cursor-pointer hover:border-purple-main shadow-purple-light transition-shadow hover:shadow-[0_0_10px_5px]"
+        className={cn(
+          "w-full cursor-pointer hover:border-purple-main shadow-purple-light transition-shadow hover:shadow-[0_0_10px_5px]",
+          {
+            "border-1 border-red-500 hover:shadow-none hover:border-red-500":
+              error,
+            "border-green-500": isValid,
+          }
+        )}
       >
         <SelectValue placeholder="Select a Link" />
       </SelectTrigger>
 
       <SelectContent className="max-h-[250px]">
-        {/* <SelectGroup>
-					<SelectItem value="apple" className="cursor-pointer">
-						<Apple /> Apple
-					</SelectItem>
-					<SelectSeparator />
-					<SelectItem
-						value="youtube"
-						className="cursor-pointer text-purple-main hover:text-purple-main"
-					>
-						<Youtube /> Banana
-					</SelectItem>
-					<SelectSeparator />
-					<SelectItem value="linkedin" className="cursor-pointer">
-						<Linkedin /> LinkedIn
-					</SelectItem>
-				</SelectGroup> */}
-
         {map(options, (item, index) => {
           const { value, label, icon } = item;
           const isLast = last(options) === item;
