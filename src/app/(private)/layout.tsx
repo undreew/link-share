@@ -1,5 +1,6 @@
-import { PageHeader } from "@/components/page";
 import React from "react";
+import { PageHeader } from "@/components/page";
+import LinksMockup from "@/modules/links/LinksMockup";
 
 interface Props {
 	children: React.ReactNode;
@@ -7,9 +8,15 @@ interface Props {
 
 const Layout: React.FC<Props> = ({ children }) => {
 	return (
-		<div className="flex flex-col h-full min-h-screen gap-5 bg-gray-light p-5">
+		<div className="grid grid-rows-[auto_1fr] h-screen p-5 gap-4 overflow-auto">
 			<PageHeader isAuth />
-			{children}
+
+			<main className="page-container">
+				<div className="page-card hidden md:block">
+					<LinksMockup />
+				</div>
+				{children}
+			</main>
 		</div>
 	);
 };

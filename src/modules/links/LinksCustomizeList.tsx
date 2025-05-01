@@ -104,7 +104,7 @@ const LinksCustomizeList: React.FC<Props> = ({ data, onChange, onRemove }) => {
 			list={data}
 			animation={200}
 			setList={onChange}
-			className="relative flex flex-col gap-5 min-h-[345px] max-h-[345px] overflow-y-auto"
+			className="relative flex flex-col gap-5 max-h-[450px] overflow-y-auto"
 		>
 			{map(data, (item) => {
 				return (
