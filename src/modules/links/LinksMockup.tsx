@@ -7,9 +7,10 @@ const MockupPlaceholder = () => {
 
 const LinksMockup = () => {
 	return (
-		<div className="flex items-center justify-center h-full p-4">
-			<IPhoneMockup frameColor="#333333" screenWidth={250} frameOnly>
-				{/* <p className="p-5 overflow-y-auto">
+		<div className="page-card hidden md:block">
+			<div className="flex items-center justify-center h-full p-4">
+				<IPhoneMockup frameColor="#333333" screenWidth={250} frameOnly>
+					{/* <p className="p-5 overflow-y-auto">
 			Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero
 			repudiandae illum vel debitis fugit facere et vero. Dicta maiores
 			aliquam libero similique molestiae necessitatibus ratione reprehenderit,
@@ -22,7 +23,8 @@ const LinksMockup = () => {
 			delectus eaque numquam? Rem nisi doloremque, eligendi enim accusantium
 			incidunt eveniet, deserunt illo perspiciatis, minus similique!
 		</p> */}
-			</IPhoneMockup>
+				</IPhoneMockup>
+			</div>
 		</div>
 	);
 };

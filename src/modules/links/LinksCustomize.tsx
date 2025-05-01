@@ -39,7 +39,7 @@ const LinksCustomize: React.FC<Props> = () => {
 	}
 
 	return (
-		<div className="flex flex-col h-full">
+		<div className="flex flex-col h-full page-card">
 			<Form
 				onSubmit={onSubmit}
 				formValues={formValues}
