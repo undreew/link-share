@@ -8,6 +8,8 @@ import { Logo } from "../logo";
 import { Button } from "../ui/button";
 import { TabsList, TabsTrigger } from "../ui/tabs";
 
+import NextLink from "next/link";
+
 import { cn } from "@/lib/utils";
 
 interface Props {
@@ -46,10 +48,15 @@ const PageHeader: React.FC<Props> = (props) => {
 									<TabsTrigger
 										key={index}
 										value={value}
-										className="data-[state=active]:bg-purple-light data-[state=active]:text-purple-main cursor-pointer hover:text-purple-main"
+										className="data-[state=active]:bg-purple-light data-[state=active]:text-purple-main cursor-pointer hover:text-purple-main p-0"
 									>
-										<Icon />
-										{label}
+										<NextLink
+											href={{ pathname: value }}
+											className="flex items-center justify-center size-full p-2 gap-1"
+										>
+											<Icon />
+											{label}
+										</NextLink>
 									</TabsTrigger>
 								);
 							})}
