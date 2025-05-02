@@ -3,7 +3,7 @@ import { Form as FormUi } from "../ui/form";
 import { FieldValues, FormProvider, UseFormReturn } from "react-hook-form";
 
 interface Props<T extends FieldValues> {
-	className: string;
+	className?: string;
 	children: React.ReactNode;
 	formValues: UseFormReturn<T>;
 	onSubmit: (formData: T) => void;
