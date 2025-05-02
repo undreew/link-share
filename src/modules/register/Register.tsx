@@ -16,7 +16,7 @@ const RegisterSubtext = (props: { className?: string }) => {
 		<small className={className}>
 			Already have an account?{" "}
 			<Link href="/login">
-				<b className="text-purple-main max-sm:block">Login</b>
+				<b className="text-purple-main max-sm:block link">Login</b>
 			</Link>
 		</small>
 	);

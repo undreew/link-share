@@ -16,7 +16,7 @@ const LoginSubtext = (props: { className?: string }) => {
 		<small className={className}>
 			Dont have an account?{" "}
 			<Link href="/register">
-				<b className="text-purple-main max-sm:block">Create an Account</b>
+				<b className="text-purple-main max-sm:block link">Create an Account</b>
 			</Link>
 		</small>
 	);
