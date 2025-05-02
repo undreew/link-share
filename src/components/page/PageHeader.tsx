@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { Link, UserPen } from "lucide-react";
+import { Eye, Link, UserPen } from "lucide-react";
 
 import { Logo } from "../logo";
 import { Button } from "../ui/button";
@@ -52,10 +52,10 @@ const PageHeader: React.FC<Props> = (props) => {
 									>
 										<NextLink
 											href={{ pathname: value }}
-											className="flex items-center justify-center size-full p-2 gap-1"
+											className="flex items-center justify-center size-full px-4 sm:px-5 gap-1"
 										>
-											<Icon />
-											{label}
+											<Icon className="size-5" />
+											<span className="max-md:hidden">{label}</span>
 										</NextLink>
 									</TabsTrigger>
 								);
@@ -64,7 +64,8 @@ const PageHeader: React.FC<Props> = (props) => {
 
 						<div>
 							<Button variant="ls-secondary" size="lg">
-								Preview
+								<Eye className="block sm:hidden" />
+								<span className="hidden sm:block">Preview</span>
 							</Button>
 						</div>
 					</>

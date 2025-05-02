@@ -22,20 +22,20 @@ const ProfilePicture = () => {
 			</div>
 
 			<div className="lg:col-span-2">
-				<div className="flex flex-col xl:flex-row lg:items-center gap-2">
-					<FormField
-						control={control}
-						name="profile_picture"
-						render={({ field }) => (
-							<FormItem>
-								<FormControl>
-									<InputImage {...field} />
-								</FormControl>
-								<FormMessage />
-							</FormItem>
-						)}
-					/>
-				</div>
+				{/* <div className="flex flex-col xl:flex-row lg:items-center gap-2"> */}
+				<FormField
+					control={control}
+					name="profile_picture"
+					render={({ field }) => (
+						<FormItem>
+							<FormControl>
+								<InputImage {...field} />
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				{/* </div> */}
 			</div>
 		</ProfileCustomizeCard>
 	);

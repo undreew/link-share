@@ -161,3 +161,7 @@ body {
 @utility page-card {
 	@apply bg-white rounded-lg h-full shadow-md;
 }
+
+@utility link {
+	@apply hover:underline;
+}

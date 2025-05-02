@@ -45,9 +45,9 @@ const ImageUpload: React.FC<Props> = (props) => {
 				{({ imageList, onImageUpload, dragProps }) => (
 					<Fragment>
 						{isEmpty(image) && (
-							<>
+							<div className="flex flex-col xl:flex-row lg:items-center gap-2">
 								<div
-									className="h-50 w-50 bg-purple-light flex flex-col justify-center items-center rounded-2xl hover:shadow-lg hover:cursor-pointer transition-shadow ease-in-out"
+									className="max-h-50 max-w-50 h-50 w-50 bg-purple-light flex flex-col justify-center items-center rounded-2xl hover:shadow-lg hover:cursor-pointer transition-shadow ease-in-out"
 									onClick={onImageUpload}
 									{...dragProps}
 								>
@@ -55,11 +55,11 @@ const ImageUpload: React.FC<Props> = (props) => {
 									<p className="heading-sm text-purple-main">+ Upload Image</p>
 								</div>
 
-								<div className="xl:text-center">
+								<div className="lg:text-center">
 									<p className="body-sm">Image must be below 1024x1024px.</p>
 									<p className="body-sm">Use PNG or JPG format.</p>
 								</div>
-							</>
+							</div>
 						)}
 						{imageList.map((image, index) => {
 							const item = image.file as File;

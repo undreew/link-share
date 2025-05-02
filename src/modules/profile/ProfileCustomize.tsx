@@ -39,7 +39,7 @@ const ProfileCustomize = () => {
 				formValues={formValues}
 				className="h-full flex flex-col"
 			>
-				<div className="flex flex-col gap-5 h-full p-10">
+				<div className="flex flex-col gap-5 h-full p-5 md:p-10">
 					<div>
 						<h1 className="heading-md">Profile Details</h1>
 						<p className="body-md">
@@ -54,7 +54,11 @@ const ProfileCustomize = () => {
 					<hr className="border-t mt-10" />
 					<div className="py-5 px-10">
 						<div className="flex justify-end">
-							<Button variant="ls-primary" type="submit">
+							<Button
+								type="submit"
+								variant="ls-primary"
+								className="max-sm:w-full"
+							>
 								Save
 							</Button>
 						</div>

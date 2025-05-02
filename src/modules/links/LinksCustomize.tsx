@@ -45,7 +45,7 @@ const LinksCustomize: React.FC<Props> = () => {
 				formValues={formValues}
 				className="h-full flex flex-col"
 			>
-				<div className="flex flex-col gap-5 h-full p-10">
+				<div className="flex flex-col gap-5 h-full p-5 md:p-10">
 					<div>
 						<LinksCustomizeHeader />
 						<LinksCustomizeAction onAdd={handleAddLink} />
@@ -67,7 +67,11 @@ const LinksCustomize: React.FC<Props> = () => {
 						<hr className="border-t mt-0" />
 						<div className="py-5 px-10">
 							<div className="flex justify-end">
-								<Button variant="ls-primary" type="submit">
+								<Button
+									type="submit"
+									variant="ls-primary"
+									className="max-sm:w-full"
+								>
 									Save
 								</Button>
 							</div>
