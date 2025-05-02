@@ -14,13 +14,17 @@ const useCustomizeProfile = () => {
 			.email("Must be a valid email")
 			.required("This field is required"),
 		profile_picture: mixed<File>()
-			.required("This field is required") // not working
+			.required("This field is required")
 			.test("required", "This field is required", (value) => {
 				return value instanceof File;
 			})
 			.test("fileSize", "File must be less than 4MB", (value) => {
 				if (!(value instanceof File)) return true;
 				return value.size <= 4 * 1024 * 1024;
+			})
+			.test("fileType", "Only PNG and JPG files are allowed", (value) => {
+				if (!(value instanceof File)) return true;
+				return ["image/jpeg", "image/png"].includes(value.type);
 			}),
 	});
 

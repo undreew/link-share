@@ -1,20 +1,22 @@
 "use client";
 
 import React from "react";
-
 import { Eye, Link, UserPen } from "lucide-react";
+
+import NextLink from "next/link";
+import { useRouter } from "next/navigation";
 
 import { Logo } from "../logo";
 import { Button } from "../ui/button";
 import { TabsList, TabsTrigger } from "../ui/tabs";
 
-import NextLink from "next/link";
-
 import { cn } from "@/lib/utils";
 
 interface Props {
+	logo?: boolean;
 	isAuth?: boolean;
 	className?: string;
+	children?: React.ReactNode;
 }
 
 const NAVS = [
@@ -31,12 +33,18 @@ const NAVS = [
 ];
 
 const PageHeader: React.FC<Props> = (props) => {
-	const { className, isAuth } = props;
+	const { className, isAuth, children, logo = true } = props;
+
+	const router = useRouter();
+
+	function handleRedirect() {
+		router.push("/preview");
+	}
 
 	return (
 		<header className={cn("p-5 bg-white shadow-sm rounded-sm", className)}>
 			<nav className="flex justify-between items-center">
-				<Logo link />
+				{logo && <Logo link />}
 
 				{isAuth && (
 					<>
@@ -63,13 +71,15 @@ const PageHeader: React.FC<Props> = (props) => {
 						</TabsList>
 
 						<div>
-							<Button variant="ls-secondary" size="lg">
+							<Button variant="ls-secondary" size="lg" onClick={handleRedirect}>
 								<Eye className="block sm:hidden" />
 								<span className="hidden sm:block">Preview</span>
 							</Button>
 						</div>
 					</>
 				)}
+
+				{children}
 			</nav>
 		</header>
 	);
