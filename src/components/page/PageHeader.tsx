@@ -11,10 +11,10 @@ import { Button } from "../ui/button";
 import { TabsList, TabsTrigger } from "../ui/tabs";
 
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/contexts/AuthProvider";
 
 interface Props {
 	logo?: boolean;
-	isAuth?: boolean;
 	className?: string;
 	children?: React.ReactNode;
 }
@@ -33,9 +33,10 @@ const NAVS = [
 ];
 
 const PageHeader: React.FC<Props> = (props) => {
-	const { className, isAuth, children, logo = true } = props;
+	const { className, children, logo = true } = props;
 
 	const router = useRouter();
+	const { isAuth } = useAuth();
 
 	function handleRedirect() {
 		router.push("/preview");

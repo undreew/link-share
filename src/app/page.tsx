@@ -1,10 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { redirect } from "next/navigation";
+import { useAuth } from "@/contexts/AuthProvider";
 
 const Page = () => {
-	const [isAuth] = useState(false);
+	const { isAuth } = useAuth();
 
 	if (!isAuth) return redirect("/login");
 

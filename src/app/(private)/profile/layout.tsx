@@ -16,7 +16,7 @@ const Layout: React.FC<Props> = ({ children }) => {
 	return (
 		<Tabs defaultValue={path}>
 			<div className="grid grid-rows-[auto_1fr] h-screen p-5 gap-4 overflow-auto">
-				<PageHeader isAuth />
+				<PageHeader />
 				{children}
 			</div>
 		</Tabs>
