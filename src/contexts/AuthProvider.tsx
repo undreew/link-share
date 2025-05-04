@@ -40,7 +40,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	return (
 		<AuthContext.Provider value={{ isAuth, accessToken, authenticate }}>
 			{isLoading ? (
-				<div className="min-h-screen bg-purple-light">
+				<div className="min-h-screen">
 					<h1 className="body-sm">Loading...</h1>
 				</div>
 			) : (

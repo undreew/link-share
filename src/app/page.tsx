@@ -32,7 +32,7 @@ const Page = () => {
 
 				<div className="mt-5">
 					<Button variant="ls-primary" onClick={handleRedirect}>
-						Start Now
+						{isAuth ? "Continue Sharing" : "Start Now"}
 					</Button>
 				</div>
 			</div>
