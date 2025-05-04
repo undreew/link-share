@@ -1,4 +1,8 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+"use client";
+
+import { isEmpty } from "lodash";
+import { createContext, useContext } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 interface AuthContextType {
 	isAuth: boolean;
@@ -13,24 +17,35 @@ export const AuthContext = createContext<AuthContextType>({
 });
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-	const [isAuth, setIsAuth] = useState<boolean>(false);
 	const [accessToken, setAccessToken] = useState<string>("");
+	const [isLoading, setIsLoading] = useState<boolean>(true);
+
+	const isAuth = useMemo(
+		() => (accessToken ? !isEmpty(accessToken) : false),
+		[accessToken]
+	);
 
 	function authenticate(accessToken: string) {
 		setAccessToken(accessToken);
+		window.localStorage.setItem("user", JSON.stringify(accessToken));
 	}
 
 	useEffect(() => {
-		if (accessToken) {
-			setIsAuth(true);
-		} else {
-			setIsAuth(false);
-		}
-	}, [accessToken]);
+		setIsLoading(true);
+		const storedToken = window.localStorage.getItem("user");
+		if (storedToken) setAccessToken(JSON.parse(storedToken));
+		setIsLoading(false);
+	}, []);
 
 	return (
 		<AuthContext.Provider value={{ isAuth, accessToken, authenticate }}>
-			{children}
+			{isLoading ? (
+				<div className="min-h-screen bg-purple-light">
+					<h1 className="body-sm">Loading...</h1>
+				</div>
+			) : (
+				children
+			)}
 		</AuthContext.Provider>
 	);
 };

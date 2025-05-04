@@ -18,7 +18,7 @@ const Layout: React.FC<Props> = ({ children }) => {
 
 	return (
 		<div className="p-5 overflow-auto h-screen">
-			<PageHeader logo={false}>
+			<PageHeader logo={false} hasNav={false}>
 				<div className="flex justify-between w-full">
 					<Button variant="ls-secondary" onClick={handleBack}>
 						Back to Editor

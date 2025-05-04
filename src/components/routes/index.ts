@@ -1,3 +1,4 @@
-import ProtectedRoutes from "./ProtectedRoutes";
+import GuestRoute from "./GuestRoute";
+import ProtectedRoute from "./ProtectedRoute";
 
-export { ProtectedRoutes };
+export { GuestRoute, ProtectedRoute };
