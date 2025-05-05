@@ -8,8 +8,17 @@ import { Label } from "@/components/ui/label";
 import { FormItem, FormField } from "@/components/ui/form";
 import { FormMessage, FormControl } from "@/components/ui/form";
 
-const RegisterFormFields = () => {
+interface Props {
+  isMobile?: boolean;
+}
+
+const RegisterFormFields: React.FC<Props> = (props) => {
+  const { isMobile } = props;
   const { control } = useFormContext<RegisterPayload>();
+
+  function generateId(id: string) {
+    return `${id}${isMobile ? "-mobile" : ""}`;
+  }
 
   return (
     <div className="flex flex-col gap-5">
@@ -18,10 +27,10 @@ const RegisterFormFields = () => {
         control={control}
         render={({ field }) => (
           <FormItem>
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor={generateId("email")}>Email</Label>
             <FormControl>
               <Input
-                id="email"
+                id={generateId("email")}
                 icon={<Mail size={12} />}
                 placeholder="e.g. alex@email.com"
                 {...field}
@@ -37,12 +46,14 @@ const RegisterFormFields = () => {
         control={control}
         render={({ field }) => (
           <FormItem>
-            <Label htmlFor="create_password">Password</Label>
+            <Label htmlFor={generateId("create_password")}>
+              Create Password
+            </Label>
             <FormControl>
               <Input
                 type="password"
-                id="create_password"
                 icon={<Lock size={12} />}
+                id={generateId("create_password")}
                 placeholder="At least 8 characters"
                 {...field}
               />
@@ -53,16 +64,16 @@ const RegisterFormFields = () => {
       />
 
       <FormField
-        name="confirm_password"
+        name="password"
         control={control}
         render={({ field }) => (
           <FormItem>
-            <Label htmlFor="confirm_password">Password</Label>
+            <Label htmlFor={generateId("password")}>Confirm Password</Label>
             <FormControl>
               <Input
                 type="password"
-                id="confirm_password"
                 icon={<Lock size={12} />}
+                id={generateId("password")}
                 placeholder="At least 8 characters"
                 {...field}
               />
