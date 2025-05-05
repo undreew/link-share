@@ -1,13 +1,15 @@
 "use client";
 
-import { toast } from "sonner";
-import { object, string } from "yup";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
 import { LoginPayload } from "@/types/payload";
 import { useAuth } from "@/contexts/AuthProvider";
 import { yupResolver } from "@hookform/resolvers/yup";
+
+import { toast } from "sonner";
+import { object, string } from "yup";
 
 const validationSchema = object({
   email: string()
@@ -20,6 +22,7 @@ const validationSchema = object({
 
 const useLogin = () => {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { authenticate } = useAuth();
 
   const formValues = useForm<LoginPayload>({
@@ -28,6 +31,7 @@ const useLogin = () => {
   });
 
   async function onSubmit(formData: LoginPayload) {
+    setIsLoading(true);
     const data = await fetch("http://localhost:5000/auth/login", {
       method: "POST",
       body: JSON.stringify(formData),
@@ -44,10 +48,12 @@ const useLogin = () => {
       authenticate(access_token);
       router.push("/links");
     }
+    setIsLoading(false);
   }
 
   return {
     onSubmit,
+    isLoading,
     formValues,
   };
 };

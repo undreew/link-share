@@ -23,17 +23,17 @@ const LoginSubtext = (props: { className?: string }) => {
 };
 
 const Login = () => {
-  const { formValues, onSubmit } = useLogin();
+  const { formValues, onSubmit, isLoading } = useLogin();
 
   return (
     <Form formValues={formValues} onSubmit={onSubmit}>
       <Card
         title="Login"
         okText="Login"
+        isLoading={isLoading}
         className="hidden sm:flex"
         okSubtext={<LoginSubtext />}
         description="Add your details below to get back into the app"
-        actions
       >
         <LoginFormFields />
       </Card>
@@ -48,7 +48,12 @@ const Login = () => {
 
         <LoginFormFields isMobile />
 
-        <Button type="submit" variant="ls-primary" className="mt-5 w-full">
+        <Button
+          type="submit"
+          variant="ls-primary"
+          className="mt-5 w-full"
+          isLoading={isLoading}
+        >
           Login
         </Button>
 
