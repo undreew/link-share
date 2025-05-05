@@ -23,11 +23,12 @@ const RegisterSubtext = (props: { className?: string }) => {
 };
 
 const Register = () => {
-  const { formValues, onSubmit } = useRegister();
+  const { formValues, onSubmit, isLoading } = useRegister();
 
   return (
     <Form formValues={formValues} onSubmit={onSubmit}>
       <Card
+        isLoading={isLoading}
         title="Create Account"
         className="hidden sm:flex"
         okText="Create new account"
@@ -47,7 +48,12 @@ const Register = () => {
 
         <RegisterFormFields isMobile />
 
-        <Button type="submit" variant="ls-primary" className="mt-5 w-full">
+        <Button
+          type="submit"
+          variant="ls-primary"
+          isLoading={isLoading}
+          className="mt-5 w-full"
+        >
           Create new account
         </Button>
 
