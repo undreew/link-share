@@ -8,51 +8,60 @@ import { Label } from "@/components/ui/label";
 import { FormItem, FormField } from "@/components/ui/form";
 import { FormMessage, FormControl } from "@/components/ui/form";
 
-const LoginFormFields = () => {
-	const { control } = useFormContext<LoginPayload>();
+interface Props {
+  isMobile?: boolean;
+}
 
-	return (
-		<div className="flex flex-col gap-5">
-			<FormField
-				name="email"
-				control={control}
-				render={({ field }) => (
-					<FormItem>
-						<Label htmlFor="email">Email</Label>
-						<FormControl>
-							<Input
-								id="email"
-								icon={<Mail size={12} />}
-								placeholder="e.g. alex@email.com"
-								{...field}
-							/>
-						</FormControl>
-						<FormMessage />
-					</FormItem>
-				)}
-			/>
+const LoginFormFields: React.FC<Props> = (props) => {
+  const { isMobile = false } = props;
+  const { control } = useFormContext<LoginPayload>();
 
-			<FormField
-				name="password"
-				control={control}
-				render={({ field }) => (
-					<FormItem>
-						<Label htmlFor="password">Password</Label>
-						<FormControl>
-							<Input
-								id="password"
-								type="password"
-								icon={<Lock size={12} />}
-								placeholder="Enter your password"
-								{...field}
-							/>
-						</FormControl>
-						<FormMessage />
-					</FormItem>
-				)}
-			/>
-		</div>
-	);
+  function generateId(id: string) {
+    return `${id}${isMobile ? "-mobile" : ""}`;
+  }
+
+  return (
+    <div className="flex flex-col gap-5">
+      <FormField
+        name="email"
+        control={control}
+        render={({ field }) => (
+          <FormItem>
+            <Label htmlFor={generateId("email")}>Email</Label>
+            <FormControl>
+              <Input
+                id={generateId("email")}
+                icon={<Mail size={12} />}
+                placeholder="e.g. alex@email.com"
+                {...field}
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        name="password"
+        control={control}
+        render={({ field }) => (
+          <FormItem>
+            <Label htmlFor={generateId("password")}>Password</Label>
+            <FormControl>
+              <Input
+                type="password"
+                icon={<Lock size={12} />}
+                id={generateId("password")}
+                placeholder="Enter your password"
+                {...field}
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    </div>
+  );
 };
 
 export default LoginFormFields;

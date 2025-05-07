@@ -8,71 +8,82 @@ import { Label } from "@/components/ui/label";
 import { FormItem, FormField } from "@/components/ui/form";
 import { FormMessage, FormControl } from "@/components/ui/form";
 
-const RegisterFormFields = () => {
-	const { control } = useFormContext<RegisterPayload>();
+interface Props {
+  isMobile?: boolean;
+}
 
-	return (
-		<div className="flex flex-col gap-5">
-			<FormField
-				name="email"
-				control={control}
-				render={({ field }) => (
-					<FormItem>
-						<Label htmlFor="email">Email</Label>
-						<FormControl>
-							<Input
-								id="email"
-								icon={<Mail size={12} />}
-								placeholder="e.g. alex@email.com"
-								{...field}
-							/>
-						</FormControl>
-						<FormMessage />
-					</FormItem>
-				)}
-			/>
+const RegisterFormFields: React.FC<Props> = (props) => {
+  const { isMobile } = props;
+  const { control } = useFormContext<RegisterPayload>();
 
-			<FormField
-				name="create_password"
-				control={control}
-				render={({ field }) => (
-					<FormItem>
-						<Label htmlFor="create_password">Password</Label>
-						<FormControl>
-							<Input
-								type="password"
-								id="create_password"
-								icon={<Lock size={12} />}
-								placeholder="At least 8 characters"
-								{...field}
-							/>
-						</FormControl>
-						<FormMessage />
-					</FormItem>
-				)}
-			/>
+  function generateId(id: string) {
+    return `${id}${isMobile ? "-mobile" : ""}`;
+  }
 
-			<FormField
-				name="confirm_password"
-				control={control}
-				render={({ field }) => (
-					<FormItem>
-						<Label htmlFor="confirm_password">Password</Label>
-						<FormControl>
-							<Input
-								type="password"
-								id="confirm_password"
-								icon={<Lock size={12} />}
-								placeholder="At least 8 characters"
-								{...field}
-							/>
-						</FormControl>
-						<FormMessage />
-					</FormItem>
-				)}
-			/>
-		</div>
-	);
+  return (
+    <div className="flex flex-col gap-5">
+      <FormField
+        name="email"
+        control={control}
+        render={({ field }) => (
+          <FormItem>
+            <Label htmlFor={generateId("email")}>Email</Label>
+            <FormControl>
+              <Input
+                id={generateId("email")}
+                icon={<Mail size={12} />}
+                placeholder="e.g. alex@email.com"
+                {...field}
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        name="create_password"
+        control={control}
+        render={({ field }) => (
+          <FormItem>
+            <Label htmlFor={generateId("create_password")}>
+              Create Password
+            </Label>
+            <FormControl>
+              <Input
+                type="password"
+                icon={<Lock size={12} />}
+                id={generateId("create_password")}
+                placeholder="At least 8 characters"
+                {...field}
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        name="password"
+        control={control}
+        render={({ field }) => (
+          <FormItem>
+            <Label htmlFor={generateId("password")}>Confirm Password</Label>
+            <FormControl>
+              <Input
+                type="password"
+                icon={<Lock size={12} />}
+                id={generateId("password")}
+                placeholder="At least 8 characters"
+                {...field}
+              />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+    </div>
+  );
 };
 
 export default RegisterFormFields;

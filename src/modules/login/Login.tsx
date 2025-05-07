@@ -11,53 +11,58 @@ import { Form } from "@/components/form";
 import { Button } from "@/components/ui/button";
 
 const LoginSubtext = (props: { className?: string }) => {
-	const { className } = props;
-	return (
-		<small className={className}>
-			Dont have an account?{" "}
-			<Link href="/register">
-				<b className="text-purple-main max-sm:block link">Create an Account</b>
-			</Link>
-		</small>
-	);
+  const { className } = props;
+  return (
+    <small className={className}>
+      Dont have an account?{" "}
+      <Link href="/register">
+        <b className="text-purple-main max-sm:block link">Create an Account</b>
+      </Link>
+    </small>
+  );
 };
 
 const Login = () => {
-	const { formValues, onSubmit } = useLogin();
+  const { formValues, onSubmit, isLoading } = useLogin();
 
-	return (
-		<Form formValues={formValues} onSubmit={onSubmit}>
-			<Card
-				title="Login"
-				okText="Login"
-				className="hidden sm:flex"
-				okSubtext={<LoginSubtext />}
-				description="Add your details below to get back into the app"
-				actions
-			>
-				<LoginFormFields />
-			</Card>
+  return (
+    <Form formValues={formValues} onSubmit={onSubmit}>
+      <Card
+        title="Login"
+        okText="Login"
+        isLoading={isLoading}
+        className="hidden sm:flex"
+        okSubtext={<LoginSubtext />}
+        description="Add your details below to get back into the app"
+      >
+        <LoginFormFields />
+      </Card>
 
-			<div className="block sm:hidden">
-				<div className="mb-10">
-					<h1 className="heading-md">Login</h1>
-					<p className="body-md">
-						Add your details below to get back into the app
-					</p>
-				</div>
+      <div className="block sm:hidden">
+        <div className="mb-10">
+          <h1 className="heading-md">Login</h1>
+          <p className="body-md">
+            Add your details below to get back into the app
+          </p>
+        </div>
 
-				<LoginFormFields />
+        <LoginFormFields isMobile />
 
-				<Button type="submit" variant="ls-primary" className="mt-5 w-full">
-					Login
-				</Button>
+        <Button
+          type="submit"
+          variant="ls-primary"
+          className="mt-5 w-full"
+          isLoading={isLoading}
+        >
+          Login
+        </Button>
 
-				<div className="mt-5 text-center">
-					<LoginSubtext className="body-md" />
-				</div>
-			</div>
-		</Form>
-	);
+        <div className="mt-5 text-center">
+          <LoginSubtext className="body-md" />
+        </div>
+      </div>
+    </Form>
+  );
 };
 
 export default Login;
