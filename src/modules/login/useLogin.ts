@@ -1,7 +1,6 @@
 "use client";
 
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { LoginPayload } from "@/types/payload";
@@ -9,6 +8,7 @@ import { useAuth } from "@/contexts/AuthProvider";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import { object, string } from "yup";
+import { toast } from "sonner";
 
 const validationSchema = object({
 	email: string()
@@ -20,7 +20,6 @@ const validationSchema = object({
 });
 
 const useLogin = () => {
-	const router = useRouter();
 	const { authenticate } = useAuth();
 	const [isLoading, setIsLoading] = useState(false);
 
@@ -40,9 +39,15 @@ const useLogin = () => {
 				},
 			});
 
-			const { access_token } = await data.json();
-			authenticate(access_token);
-			router.push("/links");
+			const { access_token, message } = await data.json();
+
+			toast[!data.ok ? "error" : "success"](message || "Login Successful");
+
+			if (data.ok) {
+				setTimeout(() => {
+					authenticate(access_token);
+				}, 3000);
+			}
 		} catch (error) {
 			console.log(error);
 			alert(error);

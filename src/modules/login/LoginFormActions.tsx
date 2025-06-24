@@ -16,8 +16,9 @@ const LoginFormActions: FC<Props> = (props) => {
 				className="w-full"
 				variant="ls-primary"
 				disabled={isLoading}
+				isLoading={isLoading}
 			>
-				{isLoading ? "Logging in..." : "Login"}
+				{isLoading ? "Logging in" : "Login"}
 			</Button>
 
 			<LoginDontHaveAccount className="text-center" />

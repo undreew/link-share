@@ -16,8 +16,9 @@ const RegisterFormActions: FC<Props> = (props) => {
 				className="w-full"
 				variant="ls-primary"
 				disabled={isLoading}
+				isLoading={isLoading}
 			>
-				{isLoading ? "Creating account..." : "Create new account"}
+				{isLoading ? "Creating account" : "Create new account"}
 			</Button>
 
 			<RegisterAlreadyHaveAccount className="text-center" />
