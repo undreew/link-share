@@ -15,9 +15,7 @@ const GuestRoute: React.FC<Props> = (props) => {
 	const { isAuth } = useAuth();
 
 	useEffect(() => {
-		if (!isAuth) {
-			router.push("/login");
-		} else {
+		if (isAuth) {
 			router.push("/links");
 		}
 	}, [isAuth, router]);

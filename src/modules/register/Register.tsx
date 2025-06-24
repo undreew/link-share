@@ -1,68 +1,34 @@
 "use client";
 
 import React from "react";
-import Link from "next/link";
 
 import useRegister from "./useRegister";
-import RegisterFormFields from "./RegisterFormFields";
 
-import { Card } from "@/components/card";
 import { Form } from "@/components/form";
-import { Button } from "@/components/ui/button";
 
-const RegisterSubtext = (props: { className?: string }) => {
-  const { className } = props;
-  return (
-    <small className={className}>
-      Already have an account?{" "}
-      <Link href="/login">
-        <b className="text-purple-main max-sm:block link">Login</b>
-      </Link>
-    </small>
-  );
-};
+import RegisterMobile from "./RegisterMobile";
+import RegisterDesktop from "./RegisterDesktop";
+
+const title = "Create Account";
+const description = "Let's get you started sharing your links!";
 
 const Register = () => {
-  const { formValues, onSubmit, isLoading } = useRegister();
+	const { formValues, onSubmit, isLoading } = useRegister();
 
-  return (
-    <Form formValues={formValues} onSubmit={onSubmit}>
-      <Card
-        isLoading={isLoading}
-        title="Create Account"
-        className="hidden sm:flex"
-        okText="Create new account"
-        description="Let's get you started sharing your links!"
-        okSubtext={<RegisterSubtext />}
-      >
-        <RegisterFormFields />
-      </Card>
-
-      <div className="block sm:hidden">
-        <div className="mb-10">
-          <h1 className="heading-md">Create Account</h1>
-          <p className="body-md">
-            Let&apos;s get you started sharing your links!
-          </p>
-        </div>
-
-        <RegisterFormFields isMobile />
-
-        <Button
-          type="submit"
-          variant="ls-primary"
-          isLoading={isLoading}
-          className="mt-5 w-full"
-        >
-          Create new account
-        </Button>
-
-        <div className="mt-5 text-center">
-          <RegisterSubtext className="body-md" />
-        </div>
-      </div>
-    </Form>
-  );
+	return (
+		<Form formValues={formValues} onSubmit={onSubmit}>
+			<RegisterDesktop
+				title={title}
+				isLoading={isLoading}
+				description={description}
+			/>
+			<RegisterMobile
+				title={title}
+				isLoading={isLoading}
+				description={description}
+			/>
+		</Form>
+	);
 };
 
 export default Register;
