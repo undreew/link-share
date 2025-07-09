@@ -9,11 +9,13 @@ export type RegisterPayload = {
   password: string;
 };
 
+export type LinkItem = {
+  link: string;
+  platform: string;
+}
+
 export type LinksPayload = {
-  links: {
-    link: string;
-    platform: string;
-  }[];
+  links: LinkItem[];
 };
 
 export type ProfilePayload = {
